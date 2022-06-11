@@ -1,64 +1,83 @@
 package HomePageElements;
 
+import BaseClass.Base;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import java.util.Random;
 
-public class RegisterSection {
-
-    public static WebElement getSignInPage(WebDriver driver) {
-        return driver.findElement(By.xpath("//a[@class='login']"));
+public class RegisterSection extends Base {
+    public RegisterSection(WebDriver driver) {
+        super(driver);
     }
 
-    public static WebElement getEmailAddressInputField(WebDriver driver) {
-        return driver.findElement(By.xpath("//input[@id='email_create']"));
-    }
+    @FindBy(id = "id_gender1")
+    WebElement gender;
 
-    public static WebElement getCreateAccountButton(WebDriver driver) {
-        return driver.findElement(By.xpath("//i[@class='icon-user left']"));
-    }
+    @FindBy(xpath = "//a[@class='login']")
+    WebElement signIn;
 
-    public static WebElement getGenderSelector(WebDriver driver) {
-        return driver.findElement(By.xpath("//input[@id='id_gender1']"));
-    }
+    @FindBy(xpath = "//input[@id='email_create']")
+    WebElement emailAddressInputField;
 
-    public static WebElement getFirstNameInputField(WebDriver driver) {
-        return driver.findElement(By.xpath("//input[@id='customer_firstname']"));
-    }
+    @FindBy(xpath = "//i[@class='icon-user left']")
+    WebElement createAccountButton;
 
-    public static WebElement getLastNameInputField(WebDriver driver) {
-        return driver.findElement(By.xpath("//input[@id='customer_lastname']"));
-    }
+    @FindBy(xpath = "//input[@id='customer_firstname']")
+    WebElement firstNameInputField;
 
-    public static WebElement getEmailInputField(WebDriver driver) {
-        return driver.findElement(By.xpath("//input[@id='email']"));
-    }
+    @FindBy(xpath = "//input[@id='customer_lastname']")
+    WebElement lastNameInputField;
 
-    public static WebElement getPasswordInputField(WebDriver driver) {
-        return driver.findElement(By.xpath("//input[@id='passwd']"));
-    }
+    @FindBy(xpath = "//input[@id='email']")
+    WebElement emailInputField;
 
-    public static WebElement getDaySelector(WebDriver driver, int value) {
+    @FindBy(xpath = "//input[@id='optin']")
+    WebElement specialOffers;
+
+    @FindBy(xpath = "//input[@id='passwd']")
+    WebElement passwordInputField;
+
+    @FindBy(xpath = "//span[contains(text(), 'Register')]")
+    WebElement registerButton;
+
+    @FindBy(xpath = "//p[@class='alert alert-success']")
+    WebElement successfulRegistrationInfo;
+
+    public WebElement getDaySelector(int value) {
         return driver.findElement(By.xpath("//select[@id='days']//option[@value='" + value + "']"));
     }
 
-    public static WebElement getMonthSelector(WebDriver driver, int value) {
+    public WebElement getMonthSelector(int value) {
         return driver.findElement(By.xpath("//select[@id='months']//option[@value='" + value + "']"));
     }
 
-    public static WebElement getYearSelector(WebDriver driver, int value) {
+    public WebElement getYearSelector(int value) {
         return driver.findElement(By.xpath("//select[@id='years']//option[@value='" + value + "']"));
     }
 
-    public static WebElement getSpecialOffers(WebDriver driver) {
-        return driver.findElement(By.xpath("//input[@id='optin']"));
-    }
-
-    public static WebElement getSRegisterButton(WebDriver driver) {
-        return driver.findElement(By.xpath("//span[contains(text(), 'Register')]"));
-    }
-
-    public static WebElement getSuccessfulRegistrationInfo(WebDriver driver) {
+    public WebElement getSuccessfulRegistrationInfo() {
         return driver.findElement(By.xpath("//p[@class='alert alert-success']"));
+    }
+
+    public void register(String name, String surname, String password) {
+        Random emailRandomizer = new Random();
+        int randomEmail = emailRandomizer.nextInt();
+        signIn.click();
+        emailAddressInputField.sendKeys(randomEmail + "@testing.pl");
+        createAccountButton.click();
+        waitUntilVisible(gender);
+        gender.click();
+        firstNameInputField.sendKeys(name);
+        lastNameInputField.sendKeys(surname);
+        emailInputField.click();
+        getDaySelector(1).click();
+        getMonthSelector(10).click();
+        getYearSelector(1990).click();
+        specialOffers.click();
+        passwordInputField.sendKeys(password);
+        registerButton.click();
+        waitUntilVisible(successfulRegistrationInfo);
     }
 }
