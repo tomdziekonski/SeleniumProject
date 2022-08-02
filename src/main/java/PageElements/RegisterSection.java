@@ -1,4 +1,4 @@
-package HomePageElements;
+package PageElements;
 
 import BaseClass.Base;
 import org.openqa.selenium.By;

@@ -1,4 +1,4 @@
-package HomePageElements;
+package PageElements;
 
 import BaseClass.Base;
 import org.openqa.selenium.WebDriver;
@@ -17,17 +17,57 @@ public class HomePage extends Base {
     @FindBy(linkText = "Women")
     WebElement womanSection;
 
+    @FindBy(xpath = "//div[@class='header_user_info']//a[@class='login']")
+    WebElement signIn;
+
+    @FindBy(xpath = "//a[@title='Blouse']")
+    WebElement blouseProduct;
+
+    @FindBy(xpath = "//p[@id='add_to_cart']")
+    WebElement addToCart;
+
+    @FindBy(xpath = "//*[text()[contains(.,\"Product successfully added to your shopping cart\")]]")
+    WebElement addToCartConfirmation;
+
     @FindAll(@FindBy(how = How.XPATH, using = "//div[@class='content_price']"))
     List<WebElement> womanSectionPriceWebElements;
 
     @FindBy(xpath = "//input[@id='search_query_top']")
     WebElement searchBar;
 
+    @FindBy(xpath = "//input[@id='email']")
+    WebElement signInEmailField;
+
+    @FindBy(xpath = "//input[@id='passwd']")
+    WebElement signInPasswordField;
+
+    @FindBy(xpath = "//button[@id='SubmitLogin']")
+    WebElement signInButton;
+
     @FindBy(css = "button.btn.btn-default.button-search")
     WebElement findButton;
 
+    public void signIn(String email, String password){
+        signIn.click();
+        signInEmailField.sendKeys(email);
+        signInPasswordField.sendKeys(password);
+        signInButton.click();
+    }
+
     public void getWomanSection() {
         womanSection.click();
+    }
+
+    public WebElement getaddToCartConfirmation(){
+        return addToCartConfirmation;
+    }
+
+    public void addToCart() {
+        addToCart.click();
+    }
+
+    public void getBlouseProduct(){
+        blouseProduct.click();
     }
 
     @FindBy(xpath = "//div[@id='center_column']//span[@class='heading-counter']")
