@@ -20,8 +20,14 @@ public class HomePage extends Base {
     @FindBy(xpath = "//div[@class='header_user_info']//a[@class='login']")
     WebElement signIn;
 
+    @FindBy(xpath = "//a[@title='Proceed to checkout']")
+    WebElement proceedToCheckout;
+
     @FindBy(xpath = "//a[@title='Blouse']")
     WebElement blouseProduct;
+
+    @FindBy(xpath = "//img[@title='Blouse']")
+    WebElement blouseDetails;
 
     @FindBy(xpath = "//p[@id='add_to_cart']")
     WebElement addToCart;
@@ -47,6 +53,15 @@ public class HomePage extends Base {
     @FindBy(css = "button.btn.btn-default.button-search")
     WebElement findButton;
 
+    @FindBy(xpath = "//iframe[contains(@id,'fancybox')]")
+    WebElement iFrame;
+
+    @FindBy(xpath = "//p[@id='add_to_cart']//button[@name='Submit']")
+    WebElement buyProduct;
+
+    @FindBy(xpath = "//p[@id='add_to_cart']//button[@class='exclusive disabled']")
+    WebElement buyProductClicked;
+
     public void signIn(String email, String password){
         signIn.click();
         signInEmailField.sendKeys(email);
@@ -58,8 +73,25 @@ public class HomePage extends Base {
         womanSection.click();
     }
 
-    public WebElement getaddToCartConfirmation(){
+    public void proceedToCheckout(){
+        proceedToCheckout.click();
+    }
+
+    public WebElement getProceedToCheckout(){
+        return proceedToCheckout;
+
+    }
+
+    public WebElement getBuyProductClicked(){
+        return  buyProductClicked;
+    }
+
+    public WebElement getAddToCartConfirmation(){
         return addToCartConfirmation;
+    }
+
+    public WebElement getIFrame(){
+        return iFrame;
     }
 
     public void addToCart() {
@@ -68,6 +100,10 @@ public class HomePage extends Base {
 
     public void getBlouseProduct(){
         blouseProduct.click();
+    }
+
+    public void getBuyProduct(){
+        buyProduct.click();
     }
 
     @FindBy(xpath = "//div[@id='center_column']//span[@class='heading-counter']")
@@ -84,6 +120,10 @@ public class HomePage extends Base {
 
     public WebElement howManyResultsFound() {
         return howManyResultsFound;
+    }
+
+    public void getBlouseDetails(){
+        blouseDetails.click();
     }
 
     public List<WebElement> getWomanSectionPriceWebElements() {

@@ -2,10 +2,12 @@ import PageElements.HomePage;
 import PageElements.RegisterSection;
 import PageElements.SignInSection;
 import TestBaseClass.TestBase;
+import gherkin.lexer.Th;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import java.util.ArrayList;
+import java.util.Set;
 
 public class PageTests extends TestBase {
     @Test
@@ -42,17 +44,25 @@ public class PageTests extends TestBase {
         Assert.assertEquals(register.getSuccessfulRegistrationInfo().getText(), "Your account has been created.");
     }
 
-    //@Test
-    public void isItPossibleToBuyAProduct() {
-        HomePage home = new HomePage(getDriver());
-        home.signIn("tester@op.pl", "12345");
+    @Test
+    public void isItPossibleToBuyAProduct() throws InterruptedException {
+        HomePage Home = new HomePage(getDriver());
+        Home.signIn("tester@op.pl", "12345");
         SignInSection signSection = new SignInSection(getDriver());
         String whichUserIsLoggedIn = signSection.getWhichUserIsLoggedIn().getText();
         Assert.assertEquals(whichUserIsLoggedIn, "G g");
-
-        home.getWomanSection();
-        home.getBlouseProduct();
-        home.addToCart();
-
+        Home.search("Blouse");
+        Home.getBlouseDetails();
+        waitUntilVisible(Home.getIFrame());
+        getDriver().switchTo().frame(Home.getIFrame());
+        Home.getBuyProduct();
+        getDriver().switchTo().defaultContent();
+        waitUntilVisible(Home.getAddToCartConfirmation());
+        Assert.assertEquals(Home.getAddToCartConfirmation().getText(), "Product successfully added to your shopping cart");
+        getDriver().switchTo().defaultContent();
+        waitUntilVisible(Home.getProceedToCheckout());
+        waitUntilClickable(Home.getProceedToCheckout());
+        Thread.sleep(3000);
+        Home.proceedToCheckout();
     }
 }
