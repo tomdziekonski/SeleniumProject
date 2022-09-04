@@ -1,6 +1,7 @@
 package TestBaseClass;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -34,6 +35,16 @@ public class TestBase {
     }
 
     public void waitUntilClickable(WebElement element) {
+
         new WebDriverWait(this.driver, 10).until(ExpectedConditions.elementToBeClickable(element));
+    }
+
+    public void jsExecutor(WebElement element) {
+        JavascriptExecutor executor = (JavascriptExecutor) driver;
+        executor.executeScript("arguments[0].click();", element);
+    }
+
+    public void waitUntilTextIsVisible(WebElement element, String txt) {
+        new WebDriverWait(this.driver, 10).until(ExpectedConditions.textToBePresentInElement(element, txt));
     }
 }

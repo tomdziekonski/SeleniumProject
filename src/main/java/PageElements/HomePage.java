@@ -6,11 +6,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class HomePage extends Base {
-    public HomePage(WebDriver driver){
+    public HomePage(WebDriver driver) {
         super(driver);
     }
 
@@ -23,14 +24,8 @@ public class HomePage extends Base {
     @FindBy(xpath = "//a[@title='Proceed to checkout']")
     WebElement proceedToCheckout;
 
-    @FindBy(xpath = "//a[@title='Blouse']")
-    WebElement blouseProduct;
-
     @FindBy(xpath = "//img[@title='Blouse']")
     WebElement blouseDetails;
-
-    @FindBy(xpath = "//p[@id='add_to_cart']")
-    WebElement addToCart;
 
     @FindBy(xpath = "//*[text()[contains(.,\"Product successfully added to your shopping cart\")]]")
     WebElement addToCartConfirmation;
@@ -59,10 +54,20 @@ public class HomePage extends Base {
     @FindBy(xpath = "//p[@id='add_to_cart']//button[@name='Submit']")
     WebElement buyProduct;
 
-    @FindBy(xpath = "//p[@id='add_to_cart']//button[@class='exclusive disabled']")
-    WebElement buyProductClicked;
+    @FindBy(xpath = "//div[@id='center_column']//span[@class='heading-counter']")
+    WebElement howManyResultsFound;
 
-    public void signIn(String email, String password){
+    @FindBy(xpath = "//a[@class='logout']")
+    WebElement logout;
+
+    public WebElement getLogout() {
+        return logout;
+    }
+
+    @FindAll(@FindBy(how = How.XPATH, using = "//div[@class='content_price']"))
+    List<WebElement> blouseWebElements;
+
+    public void signIn(String email, String password) {
         signIn.click();
         signInEmailField.sendKeys(email);
         signInPasswordField.sendKeys(password);
@@ -73,44 +78,26 @@ public class HomePage extends Base {
         womanSection.click();
     }
 
-    public void proceedToCheckout(){
+    public void proceedToCheckout() {
         proceedToCheckout.click();
     }
 
-    public WebElement getProceedToCheckout(){
+    public WebElement getProceedToCheckout() {
         return proceedToCheckout;
 
     }
 
-    public WebElement getBuyProductClicked(){
-        return  buyProductClicked;
-    }
-
-    public WebElement getAddToCartConfirmation(){
+    public WebElement getAddToCartConfirmation() {
         return addToCartConfirmation;
     }
 
-    public WebElement getIFrame(){
+    public WebElement getIFrame() {
         return iFrame;
     }
 
-    public void addToCart() {
-        addToCart.click();
-    }
-
-    public void getBlouseProduct(){
-        blouseProduct.click();
-    }
-
-    public void getBuyProduct(){
+    public void getBuyProduct() {
         buyProduct.click();
     }
-
-    @FindBy(xpath = "//div[@id='center_column']//span[@class='heading-counter']")
-    WebElement howManyResultsFound;
-
-    @FindAll(@FindBy(how = How.XPATH, using = "//div[@class='content_price']"))
-    List<WebElement> blouseWebElements;
 
     public void search(String searchPhrase) {
         searchBar.click();
@@ -122,7 +109,7 @@ public class HomePage extends Base {
         return howManyResultsFound;
     }
 
-    public void getBlouseDetails(){
+    public void getBlouseDetails() {
         blouseDetails.click();
     }
 

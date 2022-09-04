@@ -13,7 +13,7 @@ public class SignInSection extends Base {
     @FindBy(xpath = "//a[@class='account']//span")
     WebElement whichUserIsLoggedIn;
 
-    public WebElement getWhichUserIsLoggedIn(){
+    public WebElement getWhichUserIsLoggedIn() {
         return whichUserIsLoggedIn;
     }
 }
