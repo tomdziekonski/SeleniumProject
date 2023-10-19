@@ -6,7 +6,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +29,7 @@ public class HomePage extends Base {
     @FindBy(xpath = "//*[text()[contains(.,\"Product successfully added to your shopping cart\")]]")
     WebElement addToCartConfirmation;
 
-    @FindAll(@FindBy(how = How.XPATH, using = "//div[@class='content_price']"))
+    @FindAll(@FindBy(how = How.XPATH, using = "//span[@class='price product-price']"))
     List<WebElement> womanSectionPriceWebElements;
 
     @FindBy(xpath = "//input[@id='search_query_top']")
@@ -60,12 +59,63 @@ public class HomePage extends Base {
     @FindBy(xpath = "//a[@class='logout']")
     WebElement logout;
 
-    public WebElement getLogout() {
-        return logout;
+    @FindBy(xpath = "//ul[@class='sf-menu clearfix menu-content sf-js-enabled sf-arrows']//a[@title='Women']")
+    WebElement womenSection;
+
+    @FindBy(xpath ="//a[@title='Summer Dresses']")
+    WebElement summerDresses;
+
+    @FindBy(id ="layered_id_attribute_group_8")
+    WebElement whiteColorFilter;
+
+    @FindBy(xpath ="//a[@data-id-product='6' and contains(text(), 'Add to Compare')]")
+    WebElement printedSummerDress;
+
+    @FindBy(xpath ="//a[@data-id-product='7' and contains(text(), 'Add to Compare')]")
+    WebElement printeChriffonDress;
+
+    @FindBy(xpath ="//button[@class='btn btn-default button button-medium bt_compare bt_compare']")
+    WebElement compareButton;
+
+    @FindBy(xpath ="//h1[@class='page-heading']")
+    WebElement compareSection;
+
+    public WebElement getcompareSection() {
+        return compareSection;
+    }
+
+
+
+    public WebElement getPrintedSummerDress() {
+        return printedSummerDress;
+    }
+
+    public WebElement getCompareButton() {
+        return compareButton;
+    }
+
+    public WebElement getPrintedChriffonDress() {
+        return printeChriffonDress;
     }
 
     @FindAll(@FindBy(how = How.XPATH, using = "//div[@class='content_price']"))
     List<WebElement> blouseWebElements;
+
+    public WebElement getSummerDresses() {
+        return summerDresses;
+    }
+
+    public WebElement getWhiteColorFilter() {
+        return whiteColorFilter;
+    }
+
+    public WebElement getWomenSection() {
+        return womenSection;
+    }
+
+    public WebElement getLogout() {
+        return logout;
+    }
 
     public void signIn(String email, String password) {
         signIn.click();
@@ -121,15 +171,15 @@ public class HomePage extends Base {
         return blouseWebElements;
     }
 
-    public ArrayList<Double> womenSectionPrices() {
-        ArrayList<Double> womenSectionPrices = new ArrayList<>();
+    public ArrayList<Integer> womenSectionPrices() {
+        ArrayList<Integer> womenSectionPrices = new ArrayList<>();
 
         for (WebElement womanSectionPricesWebElement : getWomanSectionPriceWebElements()) {
             String price = womanSectionPricesWebElement.getText();
 
             if (!price.equals("")) {
-                String sub = price.substring(1, 6);
-                womenSectionPrices.add(Double.parseDouble(sub));
+                String sub = price.substring(1, 3);
+                womenSectionPrices.add(Integer.parseInt(sub));
             }
         }
         return womenSectionPrices;

@@ -34,7 +34,7 @@ public class RegisterSection extends Base {
     @FindBy(xpath = "//input[@id='email']")
     WebElement emailInputField;
 
-    @FindBy(xpath = "//input[@id='optin']")
+    @FindBy(xpath = "//div[@id='uniform-newsletter']")
     WebElement specialOffers;
 
     @FindBy(xpath = "//input[@id='passwd']")

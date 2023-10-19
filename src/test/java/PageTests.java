@@ -1,6 +1,7 @@
 import PageElements.*;
 import TestBaseClass.TestBase;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -31,7 +32,7 @@ public class PageTests extends TestBase {
                 convertedBlouseWebElements.add(price);
             }
         }
-        Assert.assertEquals(convertedBlouseWebElements.get(0), "$27.00");
+        Assert.assertEquals(convertedBlouseWebElements.get(0), "$27");
     }
 
     @Test
@@ -39,6 +40,39 @@ public class PageTests extends TestBase {
         RegisterSection register = new RegisterSection(getDriver());
         register.register("Tom", "Dziekonski", "12345");
         Assert.assertEquals(register.getSuccessfulRegistrationInfo().getText(), "Your account has been created.");
+    }
+
+    @Test
+    public void isItPossibleToFilterProducts() {
+        HomePage Home = new HomePage(getDriver());
+        Actions Action = new Actions(getDriver());
+        Action.moveToElement(Home.getWomenSection()).perform();
+
+        waitUntilVisible(Home.getSummerDresses());
+        waitUntilClickable(Home.getSummerDresses());
+        Home.getSummerDresses().click();
+
+        Assert.assertEquals(Home.howManyResultsFound().getText(), "There are 3 products.");
+        Home.getWhiteColorFilter().click();
+        waitUntilTextIsVisible(Home.howManyResultsFound(), "There is 1 product.");
+        Assert.assertEquals(Home.howManyResultsFound().getText(), "There is 1 product.");
+    }
+
+    @Test
+    public void isItPossibleToCompareProducts() throws InterruptedException {
+        HomePage Home = new HomePage(getDriver());
+        Actions Action = new Actions(getDriver());
+        Action.moveToElement(Home.getWomenSection()).perform();
+
+        waitUntilVisible(Home.getSummerDresses());
+        waitUntilClickable(Home.getSummerDresses());
+        Home.getSummerDresses().click();
+
+        jsExecutor(Home.getPrintedSummerDress());
+        jsExecutor(Home.getPrintedChriffonDress());
+        waitUntilVisible(Home.getCompareButton());
+        Home.getCompareButton().click();
+        Assert.assertEquals(Home.getcompareSection().getText(), "PRODUCT COMPARISON");
     }
 
     @Test
