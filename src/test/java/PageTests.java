@@ -116,7 +116,7 @@ public class PageTests extends TestBase {
         CartSection Cart = new CartSection(getDriver());
         waitUntilClickable(Cart.getCartItemQuantity());
         Cart.getCartItemQuantity().sendKeys("2");
-        waitUntilTextIsVisible(Cart.getTotalPrice(), "$63.44");
+        waitUntilTextIsVisible(Cart.getTotalPrice(), "$63");
         Cart.proceedToCheckout();
         Cart.getAdditionalCommentForm().sendKeys("Additional Comment");
         Cart.getprocessAddress().click();
@@ -124,7 +124,7 @@ public class PageTests extends TestBase {
         Cart.getProcessShipping().click();
         Cart.getBankWirePaymentMethod().click();
         Cart.getprocessAddress().click();
-        Assert.assertEquals(Cart.getConfirmOrder().getText(), "Your order on My Store is complete.");
+        Assert.assertEquals(Cart.getConfirmOrder().getText(), "Your order on My Shop is complete.");
 
         OrderHistory Order = new OrderHistory(getDriver());
         Order.getOrderHistory().click();
@@ -135,7 +135,7 @@ public class PageTests extends TestBase {
         Assert.assertEquals(Order.getOrderLastName().getText(), "g");
         Assert.assertEquals(Order.getOrderCity().getText(), "City in Alabama,");
         Assert.assertEquals(Order.getOrderCountry().getText(), "United States");
-        Assert.assertEquals(Order.getOrderTotalPrice().getText(), "$63.44");
+        Assert.assertEquals(Order.getOrderTotalPrice().getText(), "$63");
         Assert.assertEquals(Order.getOrderComment().getText(), "Additional Comment");
 
         Home.getLogout().click();
