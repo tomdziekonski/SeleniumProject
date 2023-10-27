@@ -1,11 +1,13 @@
 import PageElements.*;
 import TestBaseClass.TestBase;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class PageTests extends TestBase {
     @Test
@@ -59,7 +61,7 @@ public class PageTests extends TestBase {
     }
 
     @Test
-    public void isItPossibleToCompareProducts() throws InterruptedException {
+    public void isItPossibleToCompareProducts() {
         HomePage Home = new HomePage(getDriver());
         Actions Action = new Actions(getDriver());
         Action.moveToElement(Home.getWomenSection()).perform();
@@ -73,6 +75,23 @@ public class PageTests extends TestBase {
         waitUntilVisible(Home.getCompareButton());
         Home.getCompareButton().click();
         Assert.assertEquals(Home.getcompareSection().getText(), "PRODUCT COMPARISON");
+    }
+
+    @Test
+    public void isItPossibleToSignToTheNewsletter() {
+        HomePage Home = new HomePage(getDriver());
+        Actions Action = new Actions(getDriver());
+        Action.sendKeys(Keys.PAGE_DOWN);
+        Action.sendKeys(Keys.PAGE_DOWN);
+
+        Random emailRandomizer = new Random();
+        int randomEmail = emailRandomizer.nextInt();
+
+        waitUntilVisible(Home.getNewsletterInputField());
+        Home.getNewsletterInputField().sendKeys(randomEmail + "@testing.pl");
+        Home.getNewsletterButton().click();
+
+        Assert.assertEquals(Home.getNewsletterSaved().getText(), "Newsletter : You have successfully subscribed to this newsletter.");
     }
 
     @Test

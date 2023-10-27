@@ -80,11 +80,18 @@ public class HomePage extends Base {
     @FindBy(xpath ="//h1[@class='page-heading']")
     WebElement compareSection;
 
+    @FindBy(xpath = "//button[@class='btn btn-default button button-small']")
+    WebElement newsletterButton;
+
+    @FindBy(how = How.CSS, using = "p[class=\"alert alert-success\"]")
+    WebElement newsletterSaved;
+
+    @FindBy(how = How.CSS, using = "input[id='newsletter-input']")
+    WebElement newsletterInputField;
+
     public WebElement getcompareSection() {
         return compareSection;
     }
-
-
 
     public WebElement getPrintedSummerDress() {
         return printedSummerDress;
@@ -115,6 +122,18 @@ public class HomePage extends Base {
 
     public WebElement getLogout() {
         return logout;
+    }
+
+    public WebElement getNewsletterButton() {
+        return newsletterButton;
+    }
+
+    public WebElement getNewsletterSaved() {
+        return newsletterSaved;
+    }
+
+    public WebElement getNewsletterInputField() {
+        return newsletterInputField;
     }
 
     public void signIn(String email, String password) {
