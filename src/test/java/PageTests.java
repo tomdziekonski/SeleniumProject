@@ -73,6 +73,7 @@ public class PageTests extends TestBase {
         jsExecutor(Home.getPrintedSummerDress());
         jsExecutor(Home.getPrintedChriffonDress());
         waitUntilVisible(Home.getCompareButton());
+        waitUntilVisible(Home.getCompareButton());
         Home.getCompareButton().click();
         Assert.assertEquals(Home.getcompareSection().getText(), "PRODUCT COMPARISON");
     }
@@ -90,6 +91,7 @@ public class PageTests extends TestBase {
         waitUntilVisible(Home.getNewsletterInputField());
         Home.getNewsletterInputField().sendKeys(randomEmail + "@testing.pl");
         Home.getNewsletterButton().click();
+        waitUntilVisible(Home.getNewsletterSaved());
 
         Assert.assertEquals(Home.getNewsletterSaved().getText(), "Newsletter : You have successfully subscribed to this newsletter.");
     }
@@ -121,11 +123,16 @@ public class PageTests extends TestBase {
         Shipping.saveShippingInfo();
 
         Home.search("Blouse");
-        Home.getBlouseDetails();
-
+        waitUntilVisible(Home.getBlouseDetails());
+        Home.getBlouseDetails().click();
         waitUntilVisible(Home.getIFrame());
         getDriver().switchTo().frame(Home.getIFrame());
-        Home.getBuyProduct();
+        waitUntilVisible(Home.changeColor());
+        waitUntilClickable(Home.changeColor());
+        Home.changeColor().click();
+        waitUntilVisible(Home.getBuyProduct());
+        waitUntilClickable(Home.getBuyProduct());
+        Home.getBuyProduct().click();
         getDriver().switchTo().defaultContent();
         waitUntilVisible(Home.getAddToCartConfirmation());
         Assert.assertEquals(Home.getAddToCartConfirmation().getText(), "Product successfully added to your shopping cart");
@@ -134,6 +141,7 @@ public class PageTests extends TestBase {
         jsExecutor(Home.getProceedToCheckout());
         CartSection Cart = new CartSection(getDriver());
         waitUntilClickable(Cart.getCartItemQuantity());
+        Cart.getCartItemQuantity().clear();
         Cart.getCartItemQuantity().sendKeys("2");
         waitUntilTextIsVisible(Cart.getTotalPrice(), "$63");
         Cart.proceedToCheckout();

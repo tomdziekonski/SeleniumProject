@@ -52,9 +52,11 @@ public class HomePage extends Base {
 
     @FindBy(xpath = "//p[@id='add_to_cart']//button[@name='Submit']")
     WebElement buyProduct;
-
     @FindBy(xpath = "//div[@id='center_column']//span[@class='heading-counter']")
     WebElement howManyResultsFound;
+
+    @FindBy(xpath = "//ul[@id='color_to_pick_list']//a[@id='color_8']")
+    WebElement whiteColor;
 
     @FindBy(xpath = "//a[@class='logout']")
     WebElement logout;
@@ -147,13 +149,16 @@ public class HomePage extends Base {
         womanSection.click();
     }
 
+    public WebElement changeColor() {
+        return whiteColor;
+    }
+
     public void proceedToCheckout() {
         proceedToCheckout.click();
     }
 
     public WebElement getProceedToCheckout() {
         return proceedToCheckout;
-
     }
 
     public WebElement getAddToCartConfirmation() {
@@ -164,8 +169,8 @@ public class HomePage extends Base {
         return iFrame;
     }
 
-    public void getBuyProduct() {
-        buyProduct.click();
+    public WebElement getBuyProduct() {
+        return buyProduct;
     }
 
     public void search(String searchPhrase) {
@@ -178,8 +183,8 @@ public class HomePage extends Base {
         return howManyResultsFound;
     }
 
-    public void getBlouseDetails() {
-        blouseDetails.click();
+    public WebElement getBlouseDetails() {
+       return blouseDetails;
     }
 
     public List<WebElement> getWomanSectionPriceWebElements() {

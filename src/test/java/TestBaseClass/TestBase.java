@@ -16,7 +16,7 @@ public class TestBase {
     @BeforeTest
     public void setup() {
         WebDriverManager.firefoxdriver().setup();
-        System.setProperty("webdriver.gecko.driver","C:\\Users\\dziekonskit\\Desktop\\geckodriver.exe");
+        System.setProperty("webdriver.gecko.driver","C:\\Users\\PC\\Desktop\\geckodriver.exe");
         driver = new FirefoxDriver();
         driver.manage().window().maximize();
         driver.get("http://automationpractice.pl/index.php");
@@ -32,7 +32,7 @@ public class TestBase {
     }
 
     public void waitUntilVisible(WebElement element) {
-        new WebDriverWait(this.driver, 10).until(ExpectedConditions.visibilityOf(element));
+        new WebDriverWait(this.driver, 15).until(ExpectedConditions.visibilityOf(element));
     }
 
     public void waitUntilClickable(WebElement element) {
