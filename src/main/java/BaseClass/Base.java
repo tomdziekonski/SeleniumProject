@@ -6,15 +6,12 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.concurrent.TimeUnit;
-
 public class Base {
     protected WebDriver driver;
 
     public Base(WebDriver driver){
         this.driver = driver;
         PageFactory.initElements(driver, this);
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
     public void waitUntilVisible(WebElement element) {

@@ -79,9 +79,11 @@ public class PageTests extends TestBase {
     }
 
     @Test
-    public void isItPossibleToSignToTheNewsletter() {
+    public void isItPossibleToSignToTheNewsletter() throws InterruptedException {
         HomePage Home = new HomePage(getDriver());
         Actions Action = new Actions(getDriver());
+        Action.sendKeys(Keys.PAGE_DOWN);
+        Action.sendKeys(Keys.PAGE_DOWN);
         Action.sendKeys(Keys.PAGE_DOWN);
         Action.sendKeys(Keys.PAGE_DOWN);
 
@@ -89,7 +91,9 @@ public class PageTests extends TestBase {
         int randomEmail = emailRandomizer.nextInt();
 
         waitUntilVisible(Home.getNewsletterInputField());
+        Thread.sleep(2000);
         Home.getNewsletterInputField().sendKeys(randomEmail + "@testing.pl");
+        Thread.sleep(2000);
         Home.getNewsletterButton().click();
         waitUntilVisible(Home.getNewsletterSaved());
 
@@ -97,7 +101,7 @@ public class PageTests extends TestBase {
     }
 
     @Test
-    public void isItPossibleToBuyAProduct() {
+    public void isItPossibleToBuyAProduct() throws InterruptedException {
         HomePage Home = new HomePage(getDriver());
         Home.signIn("tester@op.pl", "12345");
         SignInSection signSection = new SignInSection(getDriver());
@@ -127,8 +131,7 @@ public class PageTests extends TestBase {
         Home.getBlouseDetails().click();
         waitUntilVisible(Home.getIFrame());
         getDriver().switchTo().frame(Home.getIFrame());
-        waitUntilVisible(Home.changeColor());
-        waitUntilClickable(Home.changeColor());
+        Thread.sleep(2000);
         Home.changeColor().click();
         waitUntilVisible(Home.getBuyProduct());
         waitUntilClickable(Home.getBuyProduct());

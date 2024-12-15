@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
+import java.util.concurrent.TimeUnit;
 
 public class TestBase {
     private WebDriver driver;
@@ -18,6 +19,7 @@ public class TestBase {
         WebDriverManager.firefoxdriver().setup();
         System.setProperty("webdriver.gecko.driver","C:\\Users\\PC\\Desktop\\geckodriver.exe");
         driver = new FirefoxDriver();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().window().maximize();
         driver.get("http://automationpractice.pl/index.php");
     }
@@ -47,5 +49,10 @@ public class TestBase {
 
     public void waitUntilTextIsVisible(WebElement element, String txt) {
         new WebDriverWait(this.driver, 10).until(ExpectedConditions.textToBePresentInElement(element, txt));
+    }
+
+    public void clickWithJSExecutor(WebElement element) {
+        JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
+        jsExecutor.executeScript("arguments[0].click();", element);
     }
 }
